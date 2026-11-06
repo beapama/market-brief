@@ -10,7 +10,7 @@ logger = logging.getLogger(__name__)
 
 SGS_URL = "https://api.bcb.gov.br/dados/serie/bcdata.sgs.{code}/dados/ultimos/{last}"
 
-SGS_SERIES: dict[str, int] = {
+SGS_SERIES_CODES: dict[str, int] = {
     "selic_target": 432,
     "ipca_12m": 13522,
     "ptax_sell": 1,
@@ -51,21 +51,35 @@ def fetch_sgs_series(code: int, last: int = 1, timeout: float = 10.0) -> list[di
                 }
             )
         except (KeyError, ValueError) as e:
-            raise BCBFetchError("Failed to parse") from e
+            raise BCBFetchError(f"Failed to parse series {code}: {e}") from e
 
     return sgs_series
 
 
-def collect_bcb_indicators(series: dict[str, int] = SGS_SERIES) -> dict:
+def collect_bcb_indicators(series: dict[str, int] = SGS_SERIES_CODES) -> dict:
     """Collect the most recent point of each series, isolating failures.
 
     Returns: {"data": {name: {"date": "YYYY-MM-DD", "value": float}},
               "errors": {name: "message"}}
     """
-    # For each (name, code): try fetch_sgs_series; on success, store the
-    # latest point in "data" (date as ISO string); on BCBFetchError, record
-    # it in "errors" and log a warning. Move on to the next series either way.
-    raise NotImplementedError
+    data = {}
+    errors = {}
+
+    for name, code in series.items():
+        try:
+            points = fetch_sgs_series(code)
+        except BCBFetchError as e:
+            logger.warning("Failed to fetch %s: %s", name, e)
+            errors[name] = str(e)
+            continue
+
+        latest = points[-1]
+        data[name] = {
+            "date": latest["date"].isoformat(),
+            "value": latest["value"],
+        }
+
+    return {"data": data, "errors": errors}
 
 
 if __name__ == "__main__":

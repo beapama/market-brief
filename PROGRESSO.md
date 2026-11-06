@@ -22,5 +22,9 @@
 - 2026-11-06: Ruff para formatação e lint, configurado no `pyproject.toml` (linha de 100 caracteres;
   regras E, W, F, I, B, UP).
 
+- 2026-11-06: Docstrings ficam no código (o que a função faz); contexto e decisões ficam em
+  `docs/<módulo>.md` (o porquê), linkados no README.
+
 ## Dúvidas pendentes
+- Selic (série 432) vem com datas futuras: como apresentar no briefing e nos gráficos?
 - Criar `.gitattributes` (`* text=auto eol=lf`) para normalizar fim de linha? (proposto, aguardando decisão)
