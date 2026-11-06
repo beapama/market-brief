@@ -1,0 +1,12 @@
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+# E/W: pycodestyle (PEP 8) | F: pyflakes (imports/variáveis não usados)
+# I: ordenação de imports  | B: bugbear (bugs comuns) | UP: sintaxe moderna
+select = ["E", "W", "F", "I", "B", "UP"]
+
+[tool.ruff.format]
+quote-style = "double"

@@ -11,3 +11,6 @@ python-dotenv
 
 # Testes
 pytest
+
+# Formatação e lint
+ruff
