@@ -1,0 +1,13 @@
+# Coleta
+requests
+yfinance
+feedparser
+
+# LLM
+anthropic
+
+# Configuração local (.env)
+python-dotenv
+
+# Testes
+pytest

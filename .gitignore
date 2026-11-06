@@ -1,0 +1,34 @@
+# Segredos
+.env
+.env.*
+!.env.example
+
+# Instruções pessoais para o assistente de IA
+CLAUDE.md
+
+# Ambiente virtual
+.venv/
+venv/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+
+# Testes e ferramentas
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# Editor / SO
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Instruções pessoais para o assistente de IA
+CLAUDE.md
